@@ -1,12 +1,12 @@
-package com.alura.hotel_alura.service;
+package hotel.alura.service;
 
 
+import hotel.alura.domains.entities.Usuario;
+import hotel.alura.exception.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alura.hotel_alura.entities.Usuario;
-import com.alura.hotel_alura.exception.LoginException;
-import com.alura.hotel_alura.repository.UsuarioRepository;
+import hotel.alura.domains.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {

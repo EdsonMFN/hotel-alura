@@ -1,8 +1,13 @@
-package com.alura.hotel_alura.controller;
+package hotel.alura.rest.controller;
 
 
 import java.util.List;
 
+import hotel.alura.domains.entities.Reserva;
+import hotel.alura.domains.model.ValorReservaDTO;
+import hotel.alura.rest.request.RequestReserva;
+import hotel.alura.rest.response.ResponseReserva;
+import hotel.alura.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.alura.hotel_alura.entities.Hospede;
-import com.alura.hotel_alura.repository.ReservaRepository;
-import com.alura.hotel_alura.service.HospedeService;
-
 @RestController
-@RequestMapping("/hospede")
-public class HospedeController {
+@RequestMapping("/reserva")
+public class ReservaController {
     
     @Autowired
-    public HospedeService hospedeService;
-    
-    @PostMapping("/{idReserva}")
-    public ResponseEntity<Hospede> insertHospede(@PathVariable Long idReserva,@RequestBody Hospede hospede){
+    public ReservaService service;
+
+    @PostMapping("/")
+    public ResponseEntity<ResponseReserva> insertReserva(@RequestBody RequestReserva requestReserva){
         try{
-            hospede = hospedeService.insertHospede(idReserva,hospede);
-            return ResponseEntity.status(HttpStatus.CREATED).body(hospede);
+            ResponseReserva responseReserva = service.insertReserva(requestReserva);
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseReserva);
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
@@ -39,10 +40,10 @@ public class HospedeController {
     }
 
     @PutMapping(value = "/{id}")
-	public ResponseEntity<Hospede> updateHospede(@PathVariable Long id, @RequestBody Hospede newData) {
+	public ResponseEntity<ResponseReserva> updateReserva(@PathVariable Long id, @RequestBody RequestReserva requestReserva) {
 		try{
-            newData = hospedeService.updateHospede(id, newData);
-            return ResponseEntity.ok().body(newData);
+            ResponseReserva responseReserva = service.updateReserva(id, requestReserva);
+            return ResponseEntity.ok().body(responseReserva);
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
@@ -50,9 +51,9 @@ public class HospedeController {
 	}
 
     @DeleteMapping(value = "/{id}")
-	public ResponseEntity<Hospede> deleteHospede(@PathVariable Long id) {
+	public ResponseEntity<ResponseReserva> deleteReserva(@PathVariable Long id) {
         try{
-            hospedeService.deleteHospede(id);
+            service.deleteReserva(id);
             return ResponseEntity.noContent().build();
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
@@ -61,9 +62,9 @@ public class HospedeController {
 	}
 
     @GetMapping("/")
-    public ResponseEntity<List<Hospede>> getListHospedes(){
+    public ResponseEntity<List<ResponseReserva>> getListReserva(){
         try{
-            return ResponseEntity.ok().body(hospedeService.getAllHospede());
+            return ResponseEntity.ok().body(service.getAllReserva());
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
@@ -71,12 +72,17 @@ public class HospedeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Hospede> findByIdHospedes(@PathVariable Long id){
+    public ResponseEntity<ResponseReserva> findByIdReserva(@PathVariable Long id){
         try{
-            return ResponseEntity.ok().body(hospedeService.findByIdHospede(id));
+            return ResponseEntity.ok().body(service.findByIdReserva(id));
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
         }
     }
+    
+    @PostMapping("/simular-valor")
+    public Long simularEstadia(@RequestBody ValorReservaDTO valores){
+        return service.valorEstadia(valores);
+    } 
 }

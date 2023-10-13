@@ -1,4 +1,4 @@
-package com.alura.hotel_alura.entities;
+package hotel.alura.domains.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,18 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.PrimaryKeyJoinColumns;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,26 +18,26 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "reserva")
 public class Reserva {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id_reserva")
     @PrimaryKeyJoinColumns(value = {@PrimaryKeyJoinColumn})
     private Long id ;
 
-    @Column(nullable = false)
-    @Nonnull
+    @Column(name = "data_entrada",nullable = false)
     private LocalDate dataEntrada;
 
-    @Column
+    @Column(name = "data_saida",nullable = false)
     private LocalDate dataSaida;
 
-    @Column(nullable = false)
+    @Column(name = "valor",nullable = false)
     @Nonnull
     private Double valor;
 
-    @Column(nullable = false)
+    @Column(name = "forma_pagamento",nullable = false)
     @Nonnull
     private String formaPagamento;
 

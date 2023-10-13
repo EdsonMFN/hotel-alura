@@ -1,4 +1,4 @@
-package com.alura.hotel_alura.exception;
+package hotel.alura.exception;
 
 public class LoginException extends RuntimeException {
 

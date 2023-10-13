@@ -1,16 +1,14 @@
-package com.alura.hotel_alura.repository.DTO;
+package hotel.alura.domains.model;
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ValorReservaDTO {
     
     private LocalDate  dataInicio;

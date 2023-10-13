@@ -1,15 +1,15 @@
-package com.alura.hotel_alura.service;
+package hotel.alura.service;
 
 import java.util.List;
 import java.util.Optional;
 
+import hotel.alura.domains.entities.Reserva;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alura.hotel_alura.entities.Hospede;
-import com.alura.hotel_alura.entities.Reserva;
-import com.alura.hotel_alura.repository.HospedeRepository;
-import com.alura.hotel_alura.repository.ReservaRepository;
+import hotel.alura.domains.entities.Hospede;
+import hotel.alura.domains.repository.HospedeRepository;
+import hotel.alura.domains.repository.ReservaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -23,21 +23,18 @@ public class HospedeService {
     private ReservaRepository reservaRepository;
 
     public Hospede insertHospede(Long idReserva,Hospede hospede){
-    	 Optional<Reserva> reservaOpt= reservaRepository.findById(idReserva);
+    	 Reserva reserva= reservaRepository.findById(idReserva).map(a->a)
+                 .orElseThrow(() -> new EntityNotFoundException("A reserva ID:" + idReserva + " não existe."));
 
-    	 if(reservaOpt.isPresent()) {
-
-    		 Reserva reserva = reservaOpt.get();
              Hospede newHospede = new Hospede( hospede.getNome(), hospede.getSobrenome(), hospede.getDataNascimento(), hospede.getNacionalidade(), hospede.getTelefone());
 
     		 newHospede.getReservas().add(reserva);
              hospedeRepository.save(newHospede);
 
              reserva.getHospedes().add(hospede);
-             reservaRepository.save(reserva); 
+             reservaRepository.save(reserva);
+
     		 return newHospede ;
-    	 }
-    	 throw new RuntimeException("A reserva ID:" + idReserva + " não existe.");
     }
 
     public Hospede updateHospede(Long idHospede, Hospede newData){

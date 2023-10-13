@@ -1,4 +1,4 @@
-package com.alura.hotel_alura.entities;
+package hotel.alura.domains.entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,15 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.PrimaryKeyJoinColumns;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,31 +18,32 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "hospede")
 public class Hospede {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id_hospede")
     @PrimaryKeyJoinColumns(value = {@PrimaryKeyJoinColumn})
     private Long id ;
    
-    @Column(nullable = false)
+    @Column(name = "nome",nullable = false)
     @Nonnull
     private String nome;
     
-    @Column(nullable = false)
+    @Column(name = "sobrenome",nullable = false)
     @Nonnull
     private String sobrenome;
     
-    @Column(nullable = false)
+    @Column(name = "dataNascimento",nullable = false)
     @Nonnull
     private LocalDate dataNascimento;
     
-    @Column(nullable = false)
+    @Column(name = "nacionalidade",nullable = false)
     @Nonnull
     private String nacionalidade;
     
-    @Column(nullable = false)
+    @Column(name = "telefone",nullable = false)
     @Nonnull
     private String telefone;
 

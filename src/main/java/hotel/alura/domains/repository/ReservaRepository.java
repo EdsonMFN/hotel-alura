@@ -1,8 +1,7 @@
-package com.alura.hotel_alura.repository;
+package hotel.alura.domains.repository;
 
+import hotel.alura.domains.entities.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.alura.hotel_alura.entities.Reserva;
 
 public interface ReservaRepository extends JpaRepository<Reserva,Long>{
     
