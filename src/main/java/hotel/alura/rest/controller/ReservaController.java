@@ -82,7 +82,7 @@ public class ReservaController {
     }
     
     @PostMapping("/simular-valor")
-    public Long simularEstadia(@RequestBody ValorReservaDTO valores){
+    public Double simularEstadia(@RequestBody ValorReservaDTO valores){
         return service.valorEstadia(valores);
     } 
 }

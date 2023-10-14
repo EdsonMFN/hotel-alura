@@ -31,6 +31,7 @@ public class ReservaService {
         reserva.setDataEntrada(requestReserva.getDataEntrada());
         reserva.setDataSaida(requestReserva.getDataSaida());
         reserva.setFormaPagamento(requestReserva.getFormaPagamento());
+        reserva.setValor(valorEstadia(ValorReservaDTO.builder().dataInicio(reserva.getDataEntrada()).dataFim(reserva.getDataSaida()).build()));
         reservaRepository.save(reserva);
 
         ValorReservaDTO valorReservaDTO = ValorReservaDTO
@@ -42,7 +43,9 @@ public class ReservaService {
         return new ResponseReserva(ReservaDto
                 .builder()
                 .id(reserva.getId())
-                .valor(Double.valueOf(valorEstadia(valorReservaDTO)))
+                .dataEntrada(reserva.getDataEntrada())
+                .dataSaida(reserva.getDataSaida())
+                .valor(reserva.getValor())
                 .hospedes(reserva.getHospedes())
                 .build());
     }
@@ -68,7 +71,7 @@ public class ReservaService {
                     .formaPagamento(reserva.getFormaPagamento())
                     .dataEntrada(reserva.getDataEntrada())
                     .dataSaida(reserva.getDataSaida())
-                    .valor(Double.valueOf(valorEstadia(valorReservaDTO)))
+                    .valor(reserva.getValor())
                     .hospedes(reserva.getHospedes())
                     .build());
 
@@ -136,7 +139,7 @@ public class ReservaService {
         }
     }
 
-    public Long valorEstadia(ValorReservaDTO simular){
-        return ChronoUnit.DAYS.between(simular.getDataInicio(), simular.getDataFim())*100;
+    public Double valorEstadia(ValorReservaDTO simular){
+        return Double.valueOf(ChronoUnit.DAYS.between(simular.getDataInicio(), simular.getDataFim())*100);
     }
 }

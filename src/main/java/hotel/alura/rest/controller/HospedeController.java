@@ -28,32 +28,32 @@ public class HospedeController {
     @Autowired
     public HospedeService hospedeService;
     
-    @PostMapping("/{idReserva}")
+    @PostMapping("/reserva/{idReserva}")
     public ResponseEntity<ResponseHospede> insertHospede(@PathVariable Long idReserva, @RequestBody RequestHospede requestHospede){
         try{
-            hospede = hospedeService.insertHospede(idReserva,hospede);
-            return ResponseEntity.status(HttpStatus.CREATED).body(hospede);
+            ResponseHospede responseHospede = hospedeService.insertHospede(idReserva,requestHospede);
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseHospede);
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
         }
     }
 
-    @PutMapping(value = "/{id}")
-	public ResponseEntity<Hospede> updateHospede(@PathVariable Long id, @RequestBody Hospede newData) {
+    @PutMapping(value = "/{idHospede}")
+	public ResponseEntity<ResponseHospede> updateHospede(@PathVariable Long idHospede, @RequestBody RequestHospede requestHospede) {
 		try{
-            newData = hospedeService.updateHospede(id, newData);
-            return ResponseEntity.ok().body(newData);
+            ResponseHospede responseHospede = hospedeService.updateHospede(idHospede, requestHospede);
+            return ResponseEntity.ok().body(responseHospede);
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
         }
 	}
 
-    @DeleteMapping(value = "/{id}")
-	public ResponseEntity<Hospede> deleteHospede(@PathVariable Long id) {
+    @DeleteMapping(value = "/{idHospede}")
+	public ResponseEntity<ResponseHospede> deleteHospede(@PathVariable Long idHospede) {
         try{
-            hospedeService.deleteHospede(id);
+            hospedeService.deleteHospede(idHospede);
             return ResponseEntity.noContent().build();
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
@@ -62,19 +62,21 @@ public class HospedeController {
 	}
 
     @GetMapping("/")
-    public ResponseEntity<List<Hospede>> getListHospedes(){
+    public ResponseEntity<List<ResponseHospede>> getListHospedes(){
         try{
-            return ResponseEntity.ok().body(hospedeService.getAllHospede());
+            List<ResponseHospede> responseHospedes = hospedeService.getAllHospede();
+            return ResponseEntity.ok().body(responseHospedes);
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Hospede> findByIdHospedes(@PathVariable Long id){
+    @GetMapping("/{idHospede}")
+    public ResponseEntity<ResponseHospede> findByIdHospedes(@PathVariable Long idHospede){
         try{
-            return ResponseEntity.ok().body(hospedeService.findByIdHospede(id));
+            ResponseHospede responseHospede = hospedeService.findByIdHospede(idHospede);
+            return ResponseEntity.ok().body(responseHospede);
         }catch(Exception e){
             String message = "Error: " + e.getMessage();
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);

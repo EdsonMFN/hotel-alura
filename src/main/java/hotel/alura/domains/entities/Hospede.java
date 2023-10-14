@@ -50,14 +50,4 @@ public class Hospede {
     @ManyToMany(mappedBy = "hospedes")
     private List<Reserva> reservas;
 
-	public Hospede(String nome, String sobrenome, LocalDate dataNascimento, String nacionalidade, String telefone) {
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.dataNascimento = dataNascimento;
-		this.nacionalidade = nacionalidade;
-		this.telefone = telefone;
-		this.reservas = new ArrayList<Reserva>();
-	}
-    
-    
 }
