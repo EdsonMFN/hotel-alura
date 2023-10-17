@@ -3,12 +3,11 @@ package hotel.alura.service;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import hotel.alura.domains.entities.Reserva;
 import hotel.alura.domains.model.ReservaDto;
-import hotel.alura.exception.EntidadeNaoEncontrada;
-import hotel.alura.exception.ExceptinHandler;
+import hotel.alura.exception.handling.EntidadeNaoEncontrada;
+import hotel.alura.exception.handling.ExceptinHandler;
 import hotel.alura.rest.request.RequestReserva;
 import hotel.alura.rest.response.ResponseReserva;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,6 @@ import org.springframework.stereotype.Service;
 
 import hotel.alura.domains.repository.ReservaRepository;
 import hotel.alura.domains.model.ValorReservaDTO;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ReservaService {

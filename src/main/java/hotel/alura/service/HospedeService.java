@@ -2,11 +2,10 @@ package hotel.alura.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import hotel.alura.domains.entities.Reserva;
 import hotel.alura.domains.model.HospedeDto;
-import hotel.alura.exception.ExceptinHandler;
+import hotel.alura.exception.handling.ExceptinHandler;
 import hotel.alura.rest.request.RequestHospede;
 import hotel.alura.rest.response.ResponseHospede;
 import org.springframework.beans.factory.annotation.Autowired;

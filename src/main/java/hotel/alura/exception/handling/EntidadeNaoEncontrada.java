@@ -1,4 +1,4 @@
-package hotel.alura.exception;
+package hotel.alura.exception.handling;
 
 public class EntidadeNaoEncontrada extends RuntimeException{
 
